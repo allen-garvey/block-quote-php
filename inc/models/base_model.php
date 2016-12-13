@@ -19,7 +19,7 @@ abstract class BaseModel{
 	}
 
 	static function slug(): string{
-		return preg_replace('/\\s+/', '-', strtolower(static::displayNamePlural()));
+		return rawurlencode(preg_replace('/\\s+/', '-', strtolower(static::displayNamePlural())));
 	}
 
 	static function dbTableName(): string{
