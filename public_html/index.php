@@ -8,6 +8,10 @@ require_once(MODELS_PATH.'quote.php');
 require_once(MODELS_PATH.'source_type.php');
 require_once(MODELS_PATH.'source.php');
 
+//routing imports
+require_once(CONTROLLERS_PATH.'uri_parser.php');
+
+
 $uri = $_SERVER['REQUEST_URI'];
 
 //admin routes
@@ -19,11 +23,20 @@ if(preg_match('`^/admin/?`', $uri)){
 		die();
 	}
 	$path = preg_replace('`^/admin/`', '', $uri);
+	if(UriParser::isIndexRoute($path, $models)){
+		echo 'index route';
+		die();
+	}
 	
 }
 else{
 	include(VIEWS_PATH.'home.php');
+	die();
 }
+
+//Route not found
+http_response_code(404);
+echo 'Route not found';
 
 
 
