@@ -5,23 +5,23 @@
     <!-- Header -->
     <div id="header">
         <div id="branding">
-          <h1 id="site-name"><a href="/admin/">Block Quote 2 Administration</a></h1>
+          <h1 id="site-name"><a href="<?= UrlHelper::adminHomeLink(); ?>">Block Quote 2 Administration</a></h1>
         </div>    
     </div>
     <!-- END Header -->
     
   <div class="breadcrumbs">
-    <a href="/admin/">Home</a>
+    <a href="<?= UrlHelper::adminHomeLink(); ?>">Home</a>
   </div>
 
     <!-- Content -->
     <div id="content" class="flex">
-      <h1>Select <?= $model::name(); ?> to change</h1>
+      <h1>Select <?= htmlentities($model::name()); ?> to change</h1>
         
       <div id="content-main">
         <ul class="object-tools">
             <li>
-              <a href="/admin/<?= $model::slug(); ?>/add/" class="addlink">Add <?= $model::name(); ?></a>
+              <a href="<?= UrlHelper::addLinkFor($model); ?>" class="addlink">Add <?= htmlentities($model::name()); ?></a>
             </li>
         </ul>
         <div class="module" id="changelist">
@@ -30,14 +30,14 @@
               <thead>
                 <tr>
                 <th scope="col"  class="column-__str__">
-                   <div class="text"><span><?= $model::displayName(); ?></span></div>
+                   <div class="text"><span><?= htmlentities($model::displayName()); ?></span></div>
                    <div class="clear"></div>
                 </th>
                 </tr>
               </thead>
               <tbody>
                 <?php foreach($context['items'] as $item): ?>
-                  <tr><th><a href="/admin/<?= $model::slug(); ?>/edit/<?= $item['id']; ?>"><?= htmlentities($model::toString($item)); ?></a></th></tr>
+                  <tr><th><a href="<?= UrlHelper::editLinkFor($model, $item['id']); ?>"><?= htmlentities($model::toString($item)); ?></a></th></tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
@@ -55,7 +55,7 @@
                 endfor;
               endif;
             ?>
-            <?= $context['items_count'].' '.$model::namePlural(); ?>
+            <?= $context['items_count'].' '.htmlentities($model::namePlural()); ?>
             <?php if($context['num_pages'] > 1): ?>
               &nbsp;&nbsp;<a href="?p=-1" class="showall">Show all</a>
             <?php endif; ?>

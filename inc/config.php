@@ -6,6 +6,7 @@ define('VIEWS_PATH', INC_PATH.'views/');
 define('ADMIN_VIEWS_PATH', INC_PATH.'views/admin/');
 define('CONTROLLERS_PATH', INC_PATH.'controllers/');
 define('MODELS_PATH', INC_PATH.'models/');
+define('VIEW_HELPERS_PATH', INC_PATH.'view_helpers/');
 
 require_once(INC_PATH.'environment_setup.php');
 require_once(INC_PATH.'db.php');

@@ -12,6 +12,8 @@ require_once(MODELS_PATH.'source.php');
 require_once(CONTROLLERS_PATH.'uri_parser.php');
 //database imports
 require_once(CONTROLLERS_PATH.'db_controller.php');
+//view helpers
+require_once(VIEW_HELPERS_PATH.'url_helper.php');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

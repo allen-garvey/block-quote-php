@@ -7,7 +7,7 @@
         <!-- Header -->
         <div id="header">
             <div id="branding">
-                <h1 id="site-name"><a href="/admin/">Block Quote 2 Administration</a></h1>
+                <h1 id="site-name"><a href="<?= UrlHelper::adminHomeLink(); ?>">Block Quote 2 Administration</a></h1>
             </div>
         </div>
         <!-- END Header -->
@@ -21,9 +21,9 @@
                         <caption>Quotes</caption>
                         <?php foreach ($models as $model): ?>
                             <tr>
-                                <th scope="row"><a href="/admin/<?= $model::slug(); ?>/"><?= $model::displayNamePlural(); ?></a></th>
+                                <th scope="row"><a href="<?= UrlHelper::indexLinkFor($model); ?>"><?= htmlentities($model::displayNamePlural()); ?></a></th>
                                 <td></td>
-                                <td><a href="/admin/<?= $model::slug(); ?>/add/" class="addlink">Add</a></td>
+                                <td><a href="<?= UrlHelper::addLinkFor($model); ?>" class="addlink">Add</a></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
