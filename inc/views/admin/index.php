@@ -37,7 +37,7 @@
               </thead>
               <tbody>
                 <?php foreach($context['items'] as $item): ?>
-                  <tr><th><a href="/admin/<?= $model::slug(); ?>/edit/<?= $item['id']; ?>"><?= $model::toString($item); ?></a></th></tr>
+                  <tr><th><a href="/admin/<?= $model::slug(); ?>/edit/<?= $item['id']; ?>"><?= htmlentities($model::toString($item)); ?></a></th></tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
