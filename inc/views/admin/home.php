@@ -19,13 +19,11 @@
                 <div class="app-quotes module">
                     <table>
                         <caption>Quotes</caption>
-                        <?php foreach ($models as $model):
-                            $slug = preg_replace('/\s/', '', strtolower($model));
-                         ?>
+                        <?php foreach ($models as $model): ?>
                             <tr>
-                                <th scope="row"><a href="/admin/<?= $slug; ?>/"><?= $model; ?></a></th>
+                                <th scope="row"><a href="/admin/<?= $model::slug(); ?>/"><?= $model::displayNamePlural(); ?></a></th>
                                 <td></td>
-                                <td><a href="/admin/?= $slug; ?>/add/" class="addlink">Add</a></td>
+                                <td><a href="/admin/<?= $model::slug(); ?>/add/" class="addlink">Add</a></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
