@@ -652,12 +652,17 @@ div.breadcrumbs a:focus, div.breadcrumbs a:hover {
 
 .addlink {
     padding-left: 16px;
-    background: url(../img/icon-addlink.svg) 0 1px no-repeat;
 }
-
-.changelink, .inlinechangelink {
-    padding-left: 16px;
-    background: url(../img/icon-changelink.svg) 0 1px no-repeat;
+//based on: http://stackoverflow.com/questions/17359787/create-a-cross-shape-in-css
+.addlink:before{
+    content: '';
+    display: inline-block;
+    vertical-align: baseline;
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    background: linear-gradient(to bottom, transparent 35%, #70bf2b 35%, #70bf2b 65%,  transparent 65%),
+                linear-gradient(to right, transparent 35%, #70bf2b 35%, #70bf2b 65%, transparent 65%);
 }
 
 .deletelink {
