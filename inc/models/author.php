@@ -18,6 +18,20 @@ class Author extends BaseModel{
 	}
 
 	static function toString(array $model): string{
-		return $model['author_first'];
+		$name = '';
+		if(!empty($model['author_last'])){
+			$name = $model['author_last'].', ';
+		}
+		$name = $name.$model['author_first'];
+		
+		if(!empty($model['author_middle'])){
+			$name = $name.' '.$model['author_middle'];
+			//add period after one letter middle names (initials)
+			if(strlen($model['author_middle']) == 1){
+				$name = $name.'.';
+			}
+		}
+
+		return $name;
 	}
 }
