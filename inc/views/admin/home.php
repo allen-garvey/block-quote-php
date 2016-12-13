@@ -17,7 +17,7 @@
             <h1>Site administration</h1>
             <div id="content-main">
                 <div class="app-quotes module">
-                    <table>
+                    <table class="admin-main-menu-table">
                         <caption>Quotes</caption>
                         <?php foreach ($models as $model): ?>
                             <tr>

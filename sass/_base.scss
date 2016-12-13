@@ -654,7 +654,7 @@ div.breadcrumbs a:focus, div.breadcrumbs a:hover {
     padding-left: 16px;
 }
 //based on: http://stackoverflow.com/questions/17359787/create-a-cross-shape-in-css
-.addlink:before{
+.admin-main-menu-table .addlink:before, .object-tools .addlink:after{
     content: '';
     display: inline-block;
     vertical-align: baseline;
@@ -665,9 +665,11 @@ div.breadcrumbs a:focus, div.breadcrumbs a:hover {
                 linear-gradient(to right, transparent 35%, #70bf2b 35%, #70bf2b 65%, transparent 65%);
 }
 
-.deletelink {
-    padding-left: 16px;
-    background: url(../img/icon-deletelink.svg) 0 1px no-repeat;
+.object-tools .addlink:after{
+    margin-left: 4px;
+    margin-right: 0;
+    background: linear-gradient(to bottom, transparent 35%, #fff 35%, #fff 65%,  transparent 65%),
+                linear-gradient(to right, transparent 35%, #fff 35%, #fff 65%, transparent 65%);
 }
 
 a.deletelink:link, a.deletelink:visited {
@@ -727,20 +729,6 @@ a.deletelink:focus, a.deletelink:hover {
 
 .object-tools a:focus{
     text-decoration: none;
-}
-
-.object-tools a.viewsitelink, .object-tools a.golink,.object-tools a.addlink {
-    background-repeat: no-repeat;
-    background-position: 93% center;
-    padding-right: 26px;
-}
-
-.object-tools a.viewsitelink, .object-tools a.golink {
-    background-image: url(../img/tooltag-arrowright.svg);
-}
-
-.object-tools a.addlink {
-    background-image: url(../img/tooltag-add.svg);
 }
 
 /* OBJECT HISTORY */
