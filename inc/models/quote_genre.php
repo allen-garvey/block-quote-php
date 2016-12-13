@@ -9,8 +9,12 @@ class QuoteGenre extends BaseModel{
 		return 'Quote genre';
 	}
 
-	static function selectAllQuery(): string{
-		return '';
+	protected static function indexSelectQuery(): string{
+		return 'SELECT id, name FROM '.self::dbTableName();
+	}
+
+	static function toString(array $model): string{
+		return $model['name'];
 	}
 	
 }

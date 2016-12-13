@@ -9,8 +9,12 @@ class Quote extends BaseModel{
 		return 'Quote';
 	}
 
-	static function selectAllQuery(): string{
-		return '';
+	protected static function indexSelectQuery(): string{
+		return 'SELECT id, quote_content FROM '.self::dbTableName();
+	}
+
+	static function toString(array $model): string{
+		return substr($model['quote_content'], 0, 30);
 	}
 	
 }

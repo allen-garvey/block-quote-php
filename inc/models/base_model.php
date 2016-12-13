@@ -22,7 +22,22 @@ abstract class BaseModel{
 		return 'quotes_'.preg_replace('/\\s/', '', strtolower(static::displayName()));
 	}
 
-	abstract static function selectAllQuery(): string;
+	static function indexQuery(int $offset=-1): string{
+		$baseQuery = static::indexSelectQuery();
+		$query = $baseQuery;
+		if($offset >= 0){
+			$columnOffset = $offset * self::indexPageOffset();
+			$query = $baseQuery.' LIMIT '.self::indexPageOffset().' OFFSET '.$columnOffset;
+		}
+
+		return $query;
+	}
+
+	protected abstract static function indexSelectQuery(): string;
+
+	static function selectOneQuery(): string{
+		return '';
+	}
 
 	static function insertQuery(): string{
 		return '';
@@ -36,6 +51,11 @@ abstract class BaseModel{
 		return 'DELETE FROM '.static::dbTableName().' WHERE id=?';
 	}
 
+	abstract static function toString(array $model): string;
+
+	static function indexPageOffset(): int{
+		return 100;
+	}
 
 	
 }

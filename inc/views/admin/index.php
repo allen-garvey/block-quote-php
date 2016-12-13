@@ -36,7 +36,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="row1"><th><a href="/admin/quotes/author/271/change/">Example</a></th></tr>
+                <?php foreach($context['items'] as $item): ?>
+                  <tr><th><a href="/admin/<?= $model::slug(); ?>/edit/<?= $item['id']; ?>"><?= $model::toString($item); ?></a></th></tr>
+                <?php endforeach; ?>
               </tbody>
             </table>
           </div>

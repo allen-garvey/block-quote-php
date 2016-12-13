@@ -9,8 +9,11 @@ class Author extends BaseModel{
 		return 'Author';
 	}
 
-	static function selectAllQuery(): string{
-		return '';
+	protected static function indexSelectQuery(): string{
+		return 'SELECT id, author_first, author_middle, author_last FROM '.self::dbTableName();
 	}
-	
+
+	static function toString(array $model): string{
+		return $model['author_first'];
+	}
 }

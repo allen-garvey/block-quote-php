@@ -10,7 +10,8 @@ require_once(MODELS_PATH.'source.php');
 
 //routing imports
 require_once(CONTROLLERS_PATH.'uri_parser.php');
-
+//database imports
+require_once(CONTROLLERS_PATH.'db_controller.php');
 
 $uri = $_SERVER['REQUEST_URI'];
 
@@ -25,6 +26,8 @@ if(preg_match('`^/admin/?`', $uri)){
 	$path = preg_replace('`^/admin/`', '', $uri);
 	if(UriParser::isIndexRoute($path, $models)){
 		$model = UriParser::extractModelFromRoute($path, $models);
+		$context = array();
+		$context['items'] = DbController::select($model::indexQuery());
 		include(ADMIN_VIEWS_PATH.'index.php');
 		die();
 	}

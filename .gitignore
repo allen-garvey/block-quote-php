@@ -9,3 +9,4 @@ public_html/styles/*.css
 public_html/scripts/*.js
 public_html/scripts/*.map
 inc/environment.json
+inc/db.php

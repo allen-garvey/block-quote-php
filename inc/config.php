@@ -8,6 +8,7 @@ define('CONTROLLERS_PATH', INC_PATH.'controllers/');
 define('MODELS_PATH', INC_PATH.'models/');
 
 require_once(INC_PATH.'environment_setup.php');
+require_once(INC_PATH.'db.php');
 
 
 define('BASE_URL','http://quotes.alaska.dev/');
