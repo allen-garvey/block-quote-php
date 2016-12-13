@@ -14,6 +14,10 @@ abstract class BaseModel{
 		return strtolower(static::displayName());
 	}
 
+	static function namePlural(): string{
+		return static::name().'s';
+	}
+
 	static function slug(): string{
 		return preg_replace('/\\s+/', '-', strtolower(static::displayNamePlural()));
 	}
@@ -30,12 +34,13 @@ abstract class BaseModel{
 
 	static function indexQuery(int $offset=-1): string{
 		$baseQuery = static::indexSelectQuery();
-		$query = $baseQuery;
+		$query = $baseQuery.' ORDER BY '.static::defaultOrdering();
+		
 		if($offset >= 0){
-			$columnOffset = $offset * self::indexPageOffset();
-			$query = $baseQuery.' LIMIT '.self::indexPageOffset().' OFFSET '.$columnOffset;
+			$columnOffset = ($offset - 1) * self::indexPageOffset();
+			$query = $query.' LIMIT '.self::indexPageOffset().' OFFSET '.$columnOffset;
 		}
-		$query = $query.' ORDER BY '.static::defaultOrdering();
+
 		return $query;
 	}
 

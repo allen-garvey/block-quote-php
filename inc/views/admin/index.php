@@ -43,9 +43,19 @@
             </table>
           </div>
           <p class="paginator">
-              <span class="this-page">1</span> 
-              <a href="?p=1" class="end">2</a> 
-            180 authors&nbsp;&nbsp;<a href="?all=1" class="showall">Show all</a>
+            <?php 
+              if($context['num_pages'] > 1):
+                for($i=1;$i<= $context['num_pages'];$i++):
+                  if($i == $context['current_page']){
+                    echo "<span class='this-page'>$i</span>";
+                  }
+                  else{
+                    echo "<a href='?p=$i' class='end'>$i</a>";
+                  }
+                endfor;
+              endif;
+            ?>
+            <?= $context['items_count'].' '.$model::namePlural(); ?>&nbsp;&nbsp;<a href="?p=-1" class="showall">Show all</a>
           </p>
         </div>
       </div>  

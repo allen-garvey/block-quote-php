@@ -28,10 +28,17 @@ if(preg_match('`^/admin/?`', $uri)){
 	if(UriParser::isIndexRoute($path, $models)){
 		$model = UriParser::extractModelFromRoute($path, $models);
 		$context = array();
-		$context['items'] = DbController::select($model::indexQuery());
+		
 		$context['items_count'] = DbController::select($model::countQuery())[0]['count'];
 		$context['num_pages'] = (int) ceil($context['items_count'] * 1.0 / $model::indexPageOffset());
-		$context['current_page'] = 1;
+		if(isset($_GET['p']) && is_numeric($_GET['p']) && $_GET['p'] <= $context['num_pages']){
+			$context['current_page'] = (int) $_GET['p'];
+		}
+		else{
+			$context['current_page'] = 1;
+		}
+		$context['items'] = DbController::select($model::indexQuery($context['current_page']));
+
 		include(ADMIN_VIEWS_PATH.'index.php');
 		die();
 	}
