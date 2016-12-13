@@ -13,21 +13,25 @@ require_once(CONTROLLERS_PATH.'uri_parser.php');
 //database imports
 require_once(CONTROLLERS_PATH.'db_controller.php');
 
-$uri = $_SERVER['REQUEST_URI'];
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 //admin routes
 if(preg_match('`^/admin/?`', $uri)){
+	//remove admin prefix
+	$path = preg_replace('`^/admin/?`', '', $uri);
 	$models = ['Author', 'QuoteGenre', 'Quote', 'SourceType', 'Source'];
 	//admin home page
-	if(preg_match('`^/admin/?$`', $uri)){
+	if($path === ''){
 		include(ADMIN_VIEWS_PATH.'home.php');
 		die();
 	}
-	$path = preg_replace('`^/admin/`', '', $uri);
 	if(UriParser::isIndexRoute($path, $models)){
 		$model = UriParser::extractModelFromRoute($path, $models);
 		$context = array();
 		$context['items'] = DbController::select($model::indexQuery());
+		$context['items_count'] = DbController::select($model::countQuery())[0]['count'];
+		$context['num_pages'] = (int) ceil($context['items_count'] * 1.0 / $model::indexPageOffset());
+		$context['current_page'] = 1;
 		include(ADMIN_VIEWS_PATH.'index.php');
 		die();
 	}
