@@ -22,6 +22,10 @@ abstract class BaseModel{
 		return 'quotes_'.preg_replace('/\\s/', '', strtolower(static::displayName()));
 	}
 
+	static function countQuery(): string{
+		return 'SELECT count(*) as count FROM '.static::dbTableName();
+	}
+
 	static function indexQuery(int $offset=-1): string{
 		$baseQuery = static::indexSelectQuery();
 		$query = $baseQuery;
