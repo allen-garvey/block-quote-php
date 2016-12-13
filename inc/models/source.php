@@ -13,6 +13,10 @@ class Source extends BaseModel{
 		return 'SELECT id, title FROM '.self::dbTableName();
 	}
 
+	static function defaultOrdering(): string{
+		return ' title';
+	}
+
 	static function toString(array $model): string{
 		return $model['title'];
 	}

@@ -13,6 +13,10 @@ class QuoteGenre extends BaseModel{
 		return 'SELECT id, name FROM '.self::dbTableName();
 	}
 
+	static function defaultOrdering(): string{
+		return ' name';
+	}
+
 	static function toString(array $model): string{
 		return $model['name'];
 	}

@@ -13,6 +13,10 @@ class Author extends BaseModel{
 		return 'SELECT id, author_first, author_middle, author_last FROM '.self::dbTableName();
 	}
 
+	static function defaultOrdering(): string{
+		return ' author_last, author_first, author_middle';
+	}
+
 	static function toString(array $model): string{
 		return $model['author_first'];
 	}

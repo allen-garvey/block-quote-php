@@ -13,6 +13,10 @@ class Quote extends BaseModel{
 		return 'SELECT id, quote_content FROM '.self::dbTableName();
 	}
 
+	static function defaultOrdering(): string{
+		return ' id';
+	}
+
 	static function toString(array $model): string{
 		return substr($model['quote_content'], 0, 30);
 	}

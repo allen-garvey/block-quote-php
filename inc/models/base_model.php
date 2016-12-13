@@ -26,6 +26,8 @@ abstract class BaseModel{
 		return 'SELECT count(*) as count FROM '.static::dbTableName();
 	}
 
+	abstract static function defaultOrdering(): string;
+
 	static function indexQuery(int $offset=-1): string{
 		$baseQuery = static::indexSelectQuery();
 		$query = $baseQuery;
@@ -33,7 +35,7 @@ abstract class BaseModel{
 			$columnOffset = $offset * self::indexPageOffset();
 			$query = $baseQuery.' LIMIT '.self::indexPageOffset().' OFFSET '.$columnOffset;
 		}
-
+		$query = $query.' ORDER BY '.static::defaultOrdering();
 		return $query;
 	}
 
