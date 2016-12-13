@@ -1,0 +1,28 @@
+{
+  "name": "php_base_project",
+  "version": "1.0.0",
+  "description": "Empty base project for php site",
+  "main": "public_html/index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "if [ ! -f ./inc/environment.json ]; then cp ./inc/environment_example.json ./inc/environment.json; fi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/allen-garvey/php-base-project.git"
+  },
+  "author": "Allen Garvey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/allen-garvey/php-base-project/issues"
+  },
+  "homepage": "https://github.com/allen-garvey/php-base-project",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.2.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0"
+  }
+}

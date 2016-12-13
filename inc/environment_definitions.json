@@ -1,0 +1,4 @@
+{
+	"ENV_DEV" : 0,
+	"ENV_PROD" : 1
+}
