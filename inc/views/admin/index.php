@@ -55,7 +55,10 @@
                 endfor;
               endif;
             ?>
-            <?= $context['items_count'].' '.$model::namePlural(); ?>&nbsp;&nbsp;<a href="?p=-1" class="showall">Show all</a>
+            <?= $context['items_count'].' '.$model::namePlural(); ?>
+            <?php if($context['num_pages'] > 1): ?>
+              &nbsp;&nbsp;<a href="?p=-1" class="showall">Show all</a>
+            <?php endif; ?>
           </p>
         </div>
       </div>  
