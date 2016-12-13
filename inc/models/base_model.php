@@ -10,6 +10,10 @@ abstract class BaseModel{
 		return static::displayName().'s';
 	}
 
+	static function name(): string{
+		return strtolower(static::displayName());
+	}
+
 	static function slug(): string{
 		return preg_replace('/\\s+/', '-', strtolower(static::displayNamePlural()));
 	}

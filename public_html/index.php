@@ -24,7 +24,8 @@ if(preg_match('`^/admin/?`', $uri)){
 	}
 	$path = preg_replace('`^/admin/`', '', $uri);
 	if(UriParser::isIndexRoute($path, $models)){
-		echo 'index route';
+		$model = UriParser::extractModelFromRoute($path, $models);
+		include(ADMIN_VIEWS_PATH.'index.php');
 		die();
 	}
 	
