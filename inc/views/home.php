@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title></title>
+        <title>Block Quote</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="stylesheet" type="text/css" href="<?= STYLES_URL.'master.css'; ?>"/>
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     </head>
     <body>
-        Homepage Template
+        <h1>Welcome to Block Quote!</h1>
+        <h2>Quote of the day</h2>
     </body>
 </html>
