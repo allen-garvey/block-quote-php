@@ -10,8 +10,11 @@
     
 <div class="form-row">
     <div>
-        <label class="required" for="id_title">Title:</label>
-        <input class="vTextField" id="id_title" name="title" type="text" required="required" value="<?php echo FormHelper::getValue($context, 'title'); ?>" />
+        <?php
+            (function($input_name, $input_value, $is_required){
+                include(ADMIN_VIEWS_PATH.'forms/text_input.php');
+            })('title', FormHelper::getValue($context, 'title'), true);
+        ?>
     </div>
 </div>
     
@@ -27,8 +30,11 @@
     
 <div class="form-row">
     <div>
-        <label for="id_release_date">Release date:</label>
-        <input class="vDateField" id="id_release_date" name="release_date" size="10" type="date" value="<?php echo FormHelper::getValue($context, 'release_date'); ?>" />
+        <?php
+            (function($input_name, $input_value, $input_type){
+                include(ADMIN_VIEWS_PATH.'forms/text_input.php');
+            })('release_date', FormHelper::getValue($context, 'release_date'), 'date');
+        ?>
     </div>
 </div>
 
@@ -44,8 +50,11 @@
     
 <div class="form-row">
     <div>
-        <label for="id_url">Url:</label>
-        <input class="vTextField" id="id_url" name="url" type="text" value="<?php echo FormHelper::getValue($context, 'url'); ?>" />
+        <?php
+            (function($input_name, $input_value, $input_type){
+                include(ADMIN_VIEWS_PATH.'forms/text_input.php');
+            })('url', FormHelper::getValue($context, 'url'), 'url');
+        ?>
     </div>
 </div>
    

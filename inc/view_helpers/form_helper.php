@@ -24,4 +24,19 @@ class FormHelper{
 	public static function labelDisplayName(string $input_name): string{
 		return htmlentities( ucfirst(preg_replace('/_+/', ' ', $input_name)));
 	}
+
+	public static function getRequired(bool $isRequired): string{
+		if($isRequired){
+			return 'required="required"';
+		}
+		return '';
+	}
+
+	//used for form labels
+	public static function getRequiredClass(bool $isRequired): string{
+		if($isRequired){
+			return 'class="required"';
+		}
+		return '';
+	}
 }
