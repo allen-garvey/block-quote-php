@@ -2,15 +2,9 @@
     (function($body_class){
         include(ADMIN_VIEWS_PATH.'head.php');
     })('change-list');
+    include(ADMIN_VIEWS_PATH.'header.php');
 ?>
     
-<div class="breadcrumbs">
-  <a href="<?= UrlHelper::adminHomeLink(); ?>">Home</a>
-</div>
-<ul class="messagelist">
-  <li class="success">The source type "test" was deleted successfully</li>
-</ul>
-
 <!-- Content -->
 <div id="content" class="flex">
   <h1>Select <?= htmlentities($model::name()); ?> to change</h1>

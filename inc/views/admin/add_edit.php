@@ -1,6 +1,7 @@
-<?php include(ADMIN_VIEWS_PATH.'head.php'); ?>
- 
-<div class="breadcrumbs"><a href="<?= UrlHelper::adminHomeLink(); ?>">Home</a></div>
+<?php 
+    include(ADMIN_VIEWS_PATH.'head.php'); 
+    include(ADMIN_VIEWS_PATH.'header.php');
+?>
 
 <!-- Content -->
 <div id="content" class="colM">
