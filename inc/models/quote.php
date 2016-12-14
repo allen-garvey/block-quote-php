@@ -17,8 +17,15 @@ class Quote extends BaseModel{
 		return ' id';
 	}
 
-	static function toString(array $model): string{
-		return substr($model['quote_content'], 0, 30);
+	static function toHTML(array $model): string{
+		$excerptLength = 120;
+		$content = $model['quote_content'];
+		$excerpt = htmlentities(substr($content, 0, $excerptLength));
+		//add ellipsis if content was truncated
+		if(strlen($content) > $excerptLength){
+			$excerpt = $excerpt.'&hellip;';
+		}
+		return $excerpt;
 	}
 	
 }

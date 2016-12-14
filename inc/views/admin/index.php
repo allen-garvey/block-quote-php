@@ -37,7 +37,7 @@
               </thead>
               <tbody>
                 <?php foreach($context['items'] as $item): ?>
-                  <tr><th><a href="<?= UrlHelper::editLinkFor($model, $item['id']); ?>"><?= htmlentities($model::toString($item)); ?></a></th></tr>
+                  <tr><th><a href="<?= UrlHelper::editLinkFor($model, $item['id']); ?>"><?= $model::toHTML($item); ?></a></th></tr>
                 <?php endforeach; ?>
               </tbody>
             </table>

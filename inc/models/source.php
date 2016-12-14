@@ -17,8 +17,8 @@ class Source extends BaseModel{
 		return ' title';
 	}
 
-	static function toString(array $model): string{
-		return $model['title'];
+	static function toHTML(array $model): string{
+		return htmlentities($model['title']);
 	}
 	
 }

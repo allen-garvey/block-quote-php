@@ -62,7 +62,8 @@ abstract class BaseModel{
 		return 'DELETE FROM '.static::dbTableName().' WHERE id=?';
 	}
 
-	abstract static function toString(array $model): string;
+	//should return htmlentities encoded string representation of the item
+	abstract static function toHTML(array $model): string;
 
 	static function indexPageOffset(): int{
 		return 100;

@@ -17,7 +17,7 @@ class Author extends BaseModel{
 		return ' author_last, author_first, author_middle';
 	}
 
-	static function toString(array $model): string{
+	static function toHTML(array $model): string{
 		$name = '';
 		if(!empty($model['author_last'])){
 			$name = $model['author_last'].', ';
@@ -32,6 +32,6 @@ class Author extends BaseModel{
 			}
 		}
 
-		return $name;
+		return htmlentities($name);
 	}
 }

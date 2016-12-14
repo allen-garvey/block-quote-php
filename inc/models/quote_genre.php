@@ -17,8 +17,8 @@ class QuoteGenre extends BaseModel{
 		return ' name';
 	}
 
-	static function toString(array $model): string{
-		return $model['name'];
+	static function toHTML(array $model): string{
+		return htmlentities($model['name']);
 	}
 	
 }
