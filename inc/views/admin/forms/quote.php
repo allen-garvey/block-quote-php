@@ -8,9 +8,9 @@
 <div class="form-row">
     <div>
         <?php 
-            (function($model, $dropdown_items, $dropdown_name, $is_required){
+            (function($model, $dropdown_items, $dropdown_name, $is_required, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('QuoteGenre', $context[QuoteGenre::filename()], 'quote_genre', true);
+            })('QuoteGenre', $context[QuoteGenre::filename()], 'quote_genre', true, FormHelper::getValue($context, 'genre_id'));
         ?>
     </div>     
 </div>
@@ -18,9 +18,9 @@
 <div class="form-row">
     <div>
         <?php 
-            (function($model, $dropdown_items, $dropdown_name){
+            (function($model, $dropdown_items, $dropdown_name, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('Author', $context[Author::filename()], 'author');
+            })('Author', $context[Author::filename()], 'author', FormHelper::getValue($context, 'author_id'));
         ?>   
     </div>
 </div>
@@ -28,9 +28,9 @@
 <div class="form-row">
     <div>
         <?php 
-            (function($model, $dropdown_items, $dropdown_name, $is_required){
+            (function($model, $dropdown_items, $dropdown_name, $is_required, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('Source', $context[Source::filename()], 'source', true);
+            })('Source', $context[Source::filename()], 'source', true, FormHelper::getValue($context, 'source_id'));
         ?>
     </div>     
 </div>

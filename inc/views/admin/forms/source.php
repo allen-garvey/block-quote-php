@@ -1,9 +1,9 @@
 <div class="form-row">
     <div>
         <?php 
-            (function($model, $dropdown_items, $dropdown_name){
+            (function($model, $dropdown_items, $dropdown_name, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('Author', $context[Author::filename()], 'author');
+            })('Author', $context[Author::filename()], 'author', FormHelper::getValue($context, 'author_id'));
         ?>   
     </div>
 </div>
@@ -18,9 +18,9 @@
 <div class="form-row">
     <div>
         <?php 
-            (function($model, $dropdown_items, $dropdown_name, $is_required){
+            (function($model, $dropdown_items, $dropdown_name, $is_required, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('SourceType', $context[SourceType::filename()], 'source_type', true);
+            })('SourceType', $context[SourceType::filename()], 'source_type', true, FormHelper::getValue($context, 'source_type_id'));
         ?>            
     </div>
 </div>
@@ -35,9 +35,9 @@
 <div class="form-row">
     <div>
         <?php 
-            (function($model, $dropdown_items, $dropdown_name){
+            (function($model, $dropdown_items, $dropdown_name, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('Source', $context[Source::filename()], 'parent_source');
+            })('Source', $context[Source::filename()], 'parent_source', FormHelper::getValue($context, 'parent_source_id'));
         ?>
     </div>     
 </div>

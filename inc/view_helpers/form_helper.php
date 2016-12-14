@@ -11,4 +11,17 @@ class FormHelper{
 		}
 		return '';
 	}
+
+	//used to set correct value as selected for select dropdown
+	//doesn't matter what order parameters are passed in
+	public static function getSelected(string $value1, string $value2): string{
+		if($value1 === $value2){
+			return 'selected="selected"';
+		}
+		return '';
+	}
+	//formats dropdown name for label
+	public static function dropdownDisplayName(string $dropdown_name): string{
+		return htmlentities( ucfirst(preg_replace('/_+/', ' ', $dropdown_name)));
+	}
 }
