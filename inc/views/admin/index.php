@@ -1,6 +1,6 @@
 <?php 
     (function($body_class){
-        include(ADMIN_VIEWS_PATH.'header.php');
+        include(ADMIN_VIEWS_PATH.'head.php');
     })('change-list');
 ?>
     
