@@ -27,5 +27,9 @@ class Quote extends BaseModel{
 		}
 		return $excerpt;
 	}
+
+	static function relatedModels(): array{
+		return ['Author', 'QuoteGenre', 'Source'];
+	}
 	
 }

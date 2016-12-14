@@ -22,6 +22,11 @@ abstract class BaseModel{
 		return rawurlencode(preg_replace('/\\s+/', '-', strtolower(static::displayNamePlural())));
 	}
 
+	//used for loading views form
+	static function filename(): string{
+		return preg_replace('/\\s+/', '_', static::name());
+	}
+
 	static function dbTableName(): string{
 		return 'quotes_'.preg_replace('/\\s/', '', strtolower(static::displayName()));
 	}
@@ -42,6 +47,12 @@ abstract class BaseModel{
 		}
 
 		return $query;
+	}
+
+	//should return list of string of model class names
+	//used to populate select fields in forms
+	static function relatedModels(): array{
+		return [];
 	}
 
 	protected abstract static function indexSelectQuery(): string;

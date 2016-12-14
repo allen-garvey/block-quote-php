@@ -48,12 +48,24 @@ if(preg_match('`^/admin/?`', $uri)){
 
 	//add routes
 	if(UriParser::isAddRoute($path, $models)){
-		echo "add route";
+		$model = UriParser::extractModelFromRoute($path, $models);
+		$context = array();
+		$context['method'] = UrlHelper::addVerb();
+		foreach($model::relatedModels() as $relatedModel){
+			$context[$relatedModel::filename()] = DbController::select($relatedModel::indexQuery(-1));
+		}
+		include(ADMIN_VIEWS_PATH.'add_edit.php');
 		die();
 	}
 	//edit routes
 	if(UriParser::isEditRoute($path, $models)){
-		echo "edit route";
+		$model = UriParser::extractModelFromRoute($path, $models);
+		$context = array();
+		$context['method'] = UrlHelper::editVerb();
+		foreach($model::relatedModels() as $relatedModel){
+			$context[$relatedModel::filename()] = DbController::select($relatedModel::indexQuery(-1));
+		}
+		include(ADMIN_VIEWS_PATH.'add_edit.php');
 		die();
 	}
 	

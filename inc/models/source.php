@@ -20,5 +20,9 @@ class Source extends BaseModel{
 	static function toHTML(array $model): string{
 		return htmlentities($model['title']);
 	}
+
+	static function relatedModels(): array{
+		return ['Author', 'SourceType', 'Source'];
+	}
 	
 }
