@@ -5,6 +5,16 @@
 */
 class UrlHelper{
 
+	//string added to urls to represent 'add' action
+	static function addVerb(): string{
+		return 'add';
+	}
+
+	//string added to urls to represent 'edit' action
+	static function editVerb(): string{
+		return 'edit';
+	}
+
 	//returns string url for admin home page
 	static function adminHomeLink(): string{
 		return '/admin';
@@ -17,11 +27,11 @@ class UrlHelper{
 
 	//returns string url to add new item to model
 	static function addLinkFor(string $model): string{
-		return self::indexLinkFor($model).'/add';
+		return self::indexLinkFor($model).'/'.self::addVerb();
 	}
 
 	//return string url to edit an item
 	static function editLinkFor(string $model, int $itemId): string{
-		return self::indexLinkFor($model).'/edit/'.$itemId;
+		return self::indexLinkFor($model).'/'.self::editVerb().'/'.$itemId;
 	}
 }
