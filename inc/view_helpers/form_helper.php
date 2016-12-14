@@ -21,7 +21,7 @@ class FormHelper{
 		return '';
 	}
 	//formats dropdown name for label
-	public static function dropdownDisplayName(string $dropdown_name): string{
-		return htmlentities( ucfirst(preg_replace('/_+/', ' ', $dropdown_name)));
+	public static function labelDisplayName(string $input_name): string{
+		return htmlentities( ucfirst(preg_replace('/_+/', ' ', $input_name)));
 	}
 }

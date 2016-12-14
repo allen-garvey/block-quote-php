@@ -4,7 +4,7 @@
 	}
  ?>
 
-<label for="id_<?= $dropdown_name; ?>" <?php if(isset($is_required) && $is_required){ echo 'class="required"'; } ?>><?= FormHelper::dropdownDisplayName($dropdown_name); ?>:</label>
+<label for="id_<?= $dropdown_name; ?>" <?php if(isset($is_required) && $is_required){ echo 'class="required"'; } ?>><?= FormHelper::labelDisplayName($dropdown_name); ?>:</label>
 <div class="related-widget-wrapper">
     <select id="id_<?= $dropdown_name; ?>" name="<?= $dropdown_name; ?>" <?php if(isset($is_required) && $is_required){ echo 'required="required"'; } ?>>
         <option value="" <?= FormHelper::getSelected($selected_id, ''); ?>>---------</option>
