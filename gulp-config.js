@@ -37,11 +37,6 @@ config.styles.sass_options = {
   outputStyle: 'compressed' //options: expanded, nested, compact, compressed
 };
 
-if(config.env.CURRENT !== config.env.definitions.ENV_PROD){
-	config.styles.sass_options.outputStyle = 'expanded';
-	config.styles.sass_options.sourceComments = true;
-}
-
 
 /*
 * Export config
