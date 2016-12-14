@@ -748,15 +748,6 @@ a.deletelink:focus, a.deletelink:hover {
     text-decoration: none;
 }
 
-/* OBJECT HISTORY */
-
-table#change-history {
-    width: 100%;
-}
-
-table#change-history tbody th {
-    width: 16em;
-}
 
 /* PAGE STRUCTURE */
 
@@ -871,17 +862,4 @@ table#change-history tbody th {
     text-decoration: none;
     border-bottom-color: #79aec8;
     color: #79aec8;
-}
-
-/* POPUP */
-.popup #content {
-    padding: 20px;
-}
-
-.popup #container {
-    min-width: 0;
-}
-
-.popup #header {
-    padding: 10px 20px;
 }
