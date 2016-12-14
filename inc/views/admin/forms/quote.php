@@ -1,8 +1,7 @@
  <div class="form-row">
     <div>
         <label class="required" for="id_quote_content">Quote content:</label>
-        <textarea class="vLargeTextField" cols="40" id="id_quote_content" name="quote_content" rows="10" required="required">
-        </textarea>
+        <textarea class="vLargeTextField" cols="40" id="id_quote_content" name="quote_content" rows="10" required="required"><?php echo FormHelper::getValue($context, 'quote_content'); ?></textarea>
     </div>
 </div>
 

@@ -57,8 +57,9 @@ abstract class BaseModel{
 
 	protected abstract static function indexSelectQuery(): string;
 
+	//using when updating item
 	static function selectOneQuery(): string{
-		return '';
+		return 'SELECT * FROM '.static::dbTableName().' WHERE id=$1';
 	}
 
 	static function insertQuery(): string{

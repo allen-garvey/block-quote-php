@@ -14,6 +14,7 @@ require_once(CONTROLLERS_PATH.'uri_parser.php');
 require_once(CONTROLLERS_PATH.'db_controller.php');
 //view helpers
 require_once(VIEW_HELPERS_PATH.'url_helper.php');
+require_once(VIEW_HELPERS_PATH.'form_helper.php');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -46,24 +47,24 @@ if(preg_match('`^/admin/?`', $uri)){
 		die();
 	}
 
-	//add routes
-	if(UriParser::isAddRoute($path, $models)){
+	//add and edit routes
+	if(UriParser::isAddRoute($path, $models) || UriParser::isEditRoute($path, $models)){
 		$model = UriParser::extractModelFromRoute($path, $models);
 		$context = array();
-		$context['method'] = UrlHelper::addVerb();
 		foreach($model::relatedModels() as $relatedModel){
 			$context[$relatedModel::filename()] = DbController::select($relatedModel::indexQuery(-1));
 		}
-		include(ADMIN_VIEWS_PATH.'add_edit.php');
-		die();
-	}
-	//edit routes
-	if(UriParser::isEditRoute($path, $models)){
-		$model = UriParser::extractModelFromRoute($path, $models);
-		$context = array();
-		$context['method'] = UrlHelper::editVerb();
-		foreach($model::relatedModels() as $relatedModel){
-			$context[$relatedModel::filename()] = DbController::select($relatedModel::indexQuery(-1));
+		if(UriParser::isAddRoute($path, $models)){
+			$context['method'] = UrlHelper::addVerb();
+		}
+		else{
+			$context['method'] = UrlHelper::editVerb();
+			$context['item'] = DbController::selectOne($model::selectOneQuery(), $model, UriParser::extractIdFromEditRoute($path));
+			if(empty($context['item'])){
+				http_response_code(404);
+				echo $model::displayName().' not found';
+				die();
+			}
 		}
 		include(ADMIN_VIEWS_PATH.'add_edit.php');
 		die();

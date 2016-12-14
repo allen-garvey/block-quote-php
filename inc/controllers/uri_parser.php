@@ -19,6 +19,12 @@ class UriParser {
 		return preg_match($editRegex, $uri);
 	}
 
+	//extracts and returns id portion of path from edit uri
+	static function extractIdFromEditRoute(string $uri): string{
+		$regex = '`^.*'.UrlHelper::editVerb().'/|/$`';
+		return preg_replace($regex, '', $uri);
+	}
+
 	static function extractModelFromRoute(string $uri, array $models): string{
 		$uriBeginning = preg_replace('`^/?|/.*$`', '', $uri);
 		
@@ -28,4 +34,5 @@ class UriParser {
 		}
 		return $routeMap[$uriBeginning];
 	}
+
 }

@@ -36,4 +36,20 @@ class DbController{
 		
 		return self::arrayFromResult($result);
 	}
+
+	public static function selectOne(string $query, string $model, string $id): array{
+		$con = self::getConnection();
+		
+		$preparedQueryName = $model::filename().'_select_one';
+		pg_prepare($con, $preparedQueryName, $query) or die(pg_last_error($con));
+		$result = pg_execute($con, $preparedQueryName, array($id)) or die(pg_last_error($con));
+		
+		pg_close($con);
+		
+		$data = self::arrayFromResult($result);
+		if(!empty($data)){
+			$data = $data[0];
+		}
+		return $data;
+	}
 }
