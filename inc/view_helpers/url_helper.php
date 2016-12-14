@@ -5,12 +5,12 @@
 */
 class UrlHelper{
 
-	//string added to urls to represent 'add' action
+	//string added to urls to represent 'add' action (show add item form)
 	static function addVerb(): string{
 		return 'add';
 	}
 
-	//string added to urls to represent 'edit' action
+	//string added to urls to represent 'edit' action (show edit item form)
 	static function editVerb(): string{
 		return 'edit';
 	}

@@ -27,6 +27,7 @@ if(preg_match('`^/admin/?`', $uri)){
 		include(ADMIN_VIEWS_PATH.'home.php');
 		die();
 	}
+	//index routes
 	if(UriParser::isIndexRoute($path, $models)){
 		$model = UriParser::extractModelFromRoute($path, $models);
 		$context = array();
@@ -42,6 +43,17 @@ if(preg_match('`^/admin/?`', $uri)){
 		$context['items'] = DbController::select($model::indexQuery($context['current_page']));
 
 		include(ADMIN_VIEWS_PATH.'index.php');
+		die();
+	}
+
+	//add routes
+	if(UriParser::isAddRoute($path, $models)){
+		echo "add route";
+		die();
+	}
+	//edit routes
+	if(UriParser::isEditRoute($path, $models)){
+		echo "edit route";
 		die();
 	}
 	
