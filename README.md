@@ -5,10 +5,10 @@ Inspirational quote CMS. Admin styles based on Django admin.
 ## Dependencies
 
 * PHP 7 or higher
-* gulp
-* npm to install dependencies
-* Bash
 * PostgreSQL
+* Nodejs 4.4 or higher with npm and gulp (for JavaScript and Sass compilation/minification)
+* npm to install dependencies
+* Bash and POSIX compatible operating system (for initial project setup scripts)
 
 ## Getting Started
 
