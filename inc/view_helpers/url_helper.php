@@ -51,7 +51,7 @@ class UrlHelper{
 	}
 
 	//return string url to delete an item
-	static function deleteLinkFor(string $model, int $itemId): string{
-		return self::indexLinkFor($model).'/'.self::deleteVerb().'/'.$itemId;
+	static function deleteLinkFor(string $model): string{
+		return self::indexLinkFor($model).'/'.self::deleteVerb();
 	}
 }

@@ -264,20 +264,19 @@ body.popup .submit-row {
     margin: 0;
 }
 
-.submit-row a.deletelink {
+.submit-row .deletelink {
     display: block;
     background: #ba2121;
     border-radius: 4px;
-    padding: 10px 15px;
-    height: 15px;
-    line-height: 15px;
+    padding: 9px 15px;
+    border: 0;
     color: #fff;
+    font-size: 13px;
 }
 
-.submit-row a.deletelink:focus,
-.submit-row a.deletelink:hover,
-.submit-row a.deletelink:active {
+.submit-row .deletelink:hover {
     background: #a41515;
+    cursor: pointer;
 }
 
 /* CUSTOM FORM FIELDS */
