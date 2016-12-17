@@ -52,4 +52,26 @@ class DbController{
 		}
 		return $data;
 	}
+	//attempts to run delete query
+	//returns empty string (false) if query succeeds
+	//or pg_last_error message if query fails
+	public static function delete(string $query, string $model, string $id): string{
+		$con = self::getConnection();
+		
+		$preparedQueryName = $model::filename().'_delete';
+		$succeeded = pg_prepare($con, $preparedQueryName, $query);
+		if(!$succeeded){
+			return pg_last_error($con);
+		}
+		$succeeded = pg_execute($con, $preparedQueryName, array($id));
+		if(!$succeeded){
+			return pg_last_error($con);
+		}
+		pg_close($con);
+		return '';
+	}
+
+
+
+
 }

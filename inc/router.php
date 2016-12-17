@@ -12,10 +12,14 @@ require_once(MODELS_PATH.'source.php');
 require_once(CONTROLLERS_PATH.'uri_parser.php');
 //database imports
 require_once(CONTROLLERS_PATH.'db_controller.php');
+//session imports for flash messages
+require_once(CONTROLLERS_PATH.'flash_controller.php');
 //view helpers
 require_once(VIEW_HELPERS_PATH.'url_helper.php');
 require_once(VIEW_HELPERS_PATH.'form_helper.php');
 
+//start session
+session_start();
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 //admin routes
@@ -32,6 +36,8 @@ if(preg_match('`^/admin/?`', $uri)){
 	if(UriParser::isIndexRoute($path, $models)){
 		$model = UriParser::extractModelFromRoute($path, $models);
 		$context = array();
+		//get flash message if any
+		$context['flash'] = FlashController::getFlash();
 		
 		$context['items_count'] = DbController::select($model::countQuery())[0]['count'];
 		$context['num_pages'] = (int) ceil($context['items_count'] * 1.0 / $model::indexPageOffset());
@@ -67,6 +73,23 @@ if(preg_match('`^/admin/?`', $uri)){
 			}
 		}
 		include(ADMIN_VIEWS_PATH.'add_edit.php');
+		die();
+	}
+	//delete route
+	if(UriParser::isDeleteRoute($path, $models)){
+		$model = UriParser::extractModelFromRoute($path, $models);
+		$modelId = $_POST['id'];
+		//run delete query
+		$errorMessage = DbController::delete($model::deleteQuery(), $model, $modelId);
+		//set flash for either error message or success message
+		if($errorMessage){
+			FlashController::setFlash($errorMessage, FlashController::FLASH_ERROR);
+		}
+		else{
+			FlashController::setFlash('Item deleted', FlashController::FLASH_SUCCESS);
+		}
+		//redirect to index page
+		header('Location: '.UrlHelper::indexLinkFor($model));
 		die();
 	}
 	

@@ -71,7 +71,7 @@ abstract class BaseModel{
 	}
 
 	static function deleteQuery(): string{
-		return 'DELETE FROM '.static::dbTableName().' WHERE id=?';
+		return 'DELETE FROM '.static::dbTableName().' WHERE id=$1';
 	}
 
 	//should return htmlentities encoded string representation of the item

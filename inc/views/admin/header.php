@@ -4,6 +4,10 @@
   	&rsaquo; <a href="<?= UrlHelper::indexLinkFor($model); ?>"><?= htmlentities($model::displayNamePlural()); ?></a>
   <?php endif; ?>
 </div>
-<ul class="messagelist">
-  <li class="success">The source type "test" was deleted successfully</li>
-</ul>
+<?php if(isset($context['flash']) && $context['flash']):  ?>
+	<ul class="messagelist">
+		<?php foreach ($context['flash'] as $infoLevel => $message): ?>
+  			<li class="<?= FlashController::getFlashClass($infoLevel); ?>"><?= htmlentities($message); ?></li>
+  		<?php endforeach; ?>
+	</ul>
+<?php endif; ?>
