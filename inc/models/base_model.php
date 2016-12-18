@@ -55,6 +55,11 @@ abstract class BaseModel{
 		return [];
 	}
 
+	//should return string array of the names of database columns in model
+	//note that the id field should not be included
+	//used for insert and update queries
+	abstract static function fields(): array;
+
 	protected abstract static function indexSelectQuery(): string;
 
 	//using when updating item
@@ -63,11 +68,21 @@ abstract class BaseModel{
 	}
 
 	static function insertQuery(): string{
-		return '';
+		$fields = static::fields();
+		$fieldNames = implode(',', $fields);
+		$fieldPlaceholders = implode(',', array_map(function($i){ return "\$$i"; }, range(1, count($fields))));
+		$table = static::dbTableName();
+		
+		return "INSERT INTO $table ($fieldNames) VALUES ($fieldPlaceholders)";
 	}
 
 	static function updateQuery(): string{
-		return '';
+		$fields = static::fields();
+		$idPlaceholderIndex = count($fields) + 1;
+		$fieldPlaceholders = implode(',', array_map(function($field, $i){ return "$field = \$$i"; }, $fields, range(1, count($fields))));
+		$table = static::dbTableName();
+
+		return "UPDATE $table SET $fieldPlaceholders WHERE id = \$$idPlaceholderIndex";
 	}
 
 	static function deleteQuery(): string{
