@@ -13,11 +13,12 @@
                     <?php include(ADMIN_VIEWS_PATH.'forms/'.$model::filename().'.php'); ?>
                 </fieldset>
                 <div class="submit-row">
-                    <input type="submit" value="Save" class="default" name="_save" />
+                    <input type="submit" value="Save" class="default" name="<?= FormHelper::submitButtonNameForMethod($context['method']); ?>" />
                     <?php if($context['method'] === UrlHelper::editVerb()): ?>
                         <p class="deletelink-box"><button type="button" class="deletelink" data-button="delete">Delete</button></p>
+                    <?php else: ?>
+                        <input type="submit" value="Save and add another" name="<?= FormHelper::ADD_ANOTHER_BUTTON_NAME; ?>" />
                     <?php endif; ?>
-                    <input type="submit" value="Save and add another" name="_addanother" />
                 </div>
             </div>
         </form>

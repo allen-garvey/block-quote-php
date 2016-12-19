@@ -4,6 +4,19 @@
 * Helps with html output in forms
 */
 class FormHelper{
+	const EDIT_BUTTON_NAME = '_edit';
+	const ADD_BUTTON_NAME = '_save';
+	const ADD_ANOTHER_BUTTON_NAME = '_addanother';
+
+	//method should be UrlHelper verbtype
+	//returns submit button name
+	public static function submitButtonNameForMethod(string $method): string{
+		if($method === UrlHelper::editVerb()){
+			return self::EDIT_BUTTON_NAME;
+		}
+		return self::ADD_BUTTON_NAME;
+	}
+
 	//returns html encoded value for html input field
 	public static function getValue(array $context, string $name): string{
 		if($context['method'] === UrlHelper::editVerb()){ 
@@ -39,4 +52,5 @@ class FormHelper{
 		}
 		return '';
 	}
+
 }
