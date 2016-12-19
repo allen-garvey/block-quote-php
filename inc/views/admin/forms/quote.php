@@ -10,7 +10,7 @@
         <?php 
             (function($model, $dropdown_items, $dropdown_name, $is_required, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('QuoteGenre', $context[QuoteGenre::filename()], 'quote_genre', true, FormHelper::getValue($context, 'genre_id'));
+            })('QuoteGenre', $context[QuoteGenre::filename()], 'genre_id', true, FormHelper::getValue($context, 'genre_id'));
         ?>
     </div>     
 </div>
@@ -20,7 +20,7 @@
         <?php 
             (function($model, $dropdown_items, $dropdown_name, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('Author', $context[Author::filename()], 'author', FormHelper::getValue($context, 'author_id'));
+            })('Author', $context[Author::filename()], 'author_id', FormHelper::getValue($context, 'author_id'));
         ?>   
     </div>
 </div>

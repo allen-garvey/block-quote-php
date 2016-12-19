@@ -3,7 +3,7 @@
         <?php 
             (function($model, $dropdown_items, $dropdown_name, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('Author', $context[Author::filename()], 'author', FormHelper::getValue($context, 'author_id'));
+            })('Author', $context[Author::filename()], 'author_id', FormHelper::getValue($context, 'author_id'));
         ?>   
     </div>
 </div>
@@ -23,7 +23,7 @@
         <?php 
             (function($model, $dropdown_items, $dropdown_name, $is_required, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('SourceType', $context[SourceType::filename()], 'source_type', true, FormHelper::getValue($context, 'source_type_id'));
+            })('SourceType', $context[SourceType::filename()], 'source_type_id', true, FormHelper::getValue($context, 'source_type_id'));
         ?>            
     </div>
 </div>
@@ -43,7 +43,7 @@
         <?php 
             (function($model, $dropdown_items, $dropdown_name, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('Source', $context[Source::filename()], 'parent_source', FormHelper::getValue($context, 'parent_source_id'));
+            })('Source', $context[Source::filename()], 'parent_source_id', FormHelper::getValue($context, 'parent_source_id'));
         ?>
     </div>     
 </div>
