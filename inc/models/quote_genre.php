@@ -20,5 +20,9 @@ class QuoteGenre extends BaseModel{
 	static function toHTML(array $model): string{
 		return htmlentities($model['name']);
 	}
+
+	static function fields(): array{
+		return ['name'];
+	}
 	
 }

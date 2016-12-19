@@ -24,5 +24,9 @@ class Source extends BaseModel{
 	static function relatedModels(): array{
 		return ['Author', 'SourceType', 'Source'];
 	}
+
+	static function fields(): array{
+		return ['title', 'release_date', 'url', 'author_id', 'parent_source_id', 'source_type_id', 'sort_title'];
+	}
 	
 }

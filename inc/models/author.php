@@ -34,4 +34,8 @@ class Author extends BaseModel{
 
 		return htmlentities($name);
 	}
+
+	static function fields(): array{
+		return ['author_last', 'author_first', 'author_middle'];
+	}
 }
