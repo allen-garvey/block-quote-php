@@ -20,15 +20,11 @@ class UrlHelper{
 		return 'delete';
 	}
 
-	//string added to urls to represent 'update' action (update item)
-	static function updateVerb(): string{
-		return 'update';
+	//string added to urls to represent 'save' action (update or create item)
+	static function saveVerb(): string{
+		return 'save';
 	}
 
-	//string added to urls to represent 'create' action (create item)
-	static function createVerb(): string{
-		return 'create';
-	}
 
 	//returns string url for admin home page
 	static function adminHomeLink(): string{
@@ -54,4 +50,10 @@ class UrlHelper{
 	static function deleteLinkFor(string $model): string{
 		return self::indexLinkFor($model).'/'.self::deleteVerb();
 	}
+
+	//return string url to save an item (update or delete)
+	static function saveLinkFor(string $model): string{
+		return self::indexLinkFor($model).'/'.self::saveVerb();
+	}
+
 }

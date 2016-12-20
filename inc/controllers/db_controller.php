@@ -71,6 +71,25 @@ class DbController{
 		return '';
 	}
 
+	//attempts to run insert or update query
+	//returns empty string (false) if query succeeds
+	//or pg_last_error message if query fails
+	public static function save(string $query, array $values, string $model): string{
+		$con = self::getConnection();
+		
+		$preparedQueryName = $model::filename().'_save';
+		$succeeded = pg_prepare($con, $preparedQueryName, $query);
+		if(!$succeeded){
+			return pg_last_error($con);
+		}
+		$succeeded = pg_execute($con, $preparedQueryName, $values);
+		if(!$succeeded){
+			return pg_last_error($con);
+		}
+		pg_close($con);
+		return '';
+	}
+
 
 
 

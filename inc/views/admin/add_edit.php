@@ -7,7 +7,7 @@
 <div id="content" class="colM">
     <h1><?php if($context['method'] === UrlHelper::addVerb()){ echo 'Add'; } else{echo 'Change';} ?> <?= htmlentities($model::name()); ?></h1>
     <div id="content-main">
-        <form action="" method="POST">
+        <form action="<?= UrlHelper::saveLinkFor($model); ?>" method="POST">
             <div>
                 <fieldset class="module aligned ">
                     <?php include(ADMIN_VIEWS_PATH.'forms/'.$model::filename().'.php'); ?>
@@ -16,7 +16,10 @@
                     <input type="submit" value="Save" class="default" name="<?= FormHelper::submitButtonNameForMethod($context['method']); ?>" />
                     <?php if($context['method'] === UrlHelper::editVerb()): ?>
                         <p class="deletelink-box"><button type="button" class="deletelink" data-button="delete">Delete</button></p>
+                        <input type="hidden" name="id" value="<?= $context['item']['id']; ?>" />
+                        <input type="hidden" name="method" value="PATCH" />
                     <?php else: ?>
+                        <input type="hidden" name="method" value="POST" />
                         <input type="submit" value="Save and add another" name="<?= FormHelper::ADD_ANOTHER_BUTTON_NAME; ?>" />
                     <?php endif; ?>
                 </div>

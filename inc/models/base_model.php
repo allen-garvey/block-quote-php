@@ -67,6 +67,39 @@ abstract class BaseModel{
 		return 'SELECT * FROM '.static::dbTableName().' WHERE id=$1';
 	}
 
+	//returns array of values extracted from associative array (e.g. $_POST)
+	//in correct order for insert or update query
+	static function extractValuesFrom(array $array, bool $isUpdate=false): array{
+		$fields = static::fields();
+		if($isUpdate){
+			$fields[] = 'id';
+		}
+		$values = array_map(function($field) use ($array){ return self::extractValue($field, $array); }, $fields);
+		return $values;
+	}
+
+	//returns either a string value from array if it exists or null
+	//if it is empty or doesn't exist
+	static function extractValue(string $key, array $array){
+		if(isset($array[$key]) && $array[$key] != ''){
+			return $array[$key];
+		}
+		return null;
+	}
+
+	//used to save model with errors to session
+	static function extractItemFrom(array $array): array{
+		$fields = static::fields();
+		if($isUpdate){
+			$fields[] = 'id';
+		}
+		$item = array();
+		foreach ($fields as $field){
+			$item[$field] = self::extractValue($field, $array);
+		}
+		return $item;
+	}
+
 	static function insertQuery(): string{
 		$fields = static::fields();
 		$fieldNames = implode(',', $fields);

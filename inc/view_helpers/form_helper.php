@@ -19,7 +19,7 @@ class FormHelper{
 
 	//returns html encoded value for html input field
 	public static function getValue(array $context, string $name): string{
-		if($context['method'] === UrlHelper::editVerb()){ 
+		if(isset($context['item'])){ 
 			return htmlentities($context['item'][$name]); 
 		}
 		return '';

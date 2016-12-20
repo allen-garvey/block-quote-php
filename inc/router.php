@@ -57,6 +57,16 @@ if(preg_match('`^/admin/?`', $uri)){
 	if(UriParser::isAddRoute($path, $models) || UriParser::isEditRoute($path, $models)){
 		$model = UriParser::extractModelFromRoute($path, $models);
 		$context = array();
+		//get flash message if any
+		$context['flash'] = FlashController::getFlash();
+
+		//get item from session if there is one
+		if(isset($_SESSION['item'])){
+			$context['item'] = $_SESSION['item'];
+			//unset it so we don't see it again
+			unset($_SESSION['item']);
+		}
+
 		foreach($model::relatedModels() as $relatedModel){
 			$context[$relatedModel::filename()] = DbController::select($relatedModel::indexQuery(-1));
 		}
@@ -65,7 +75,10 @@ if(preg_match('`^/admin/?`', $uri)){
 		}
 		else{
 			$context['method'] = UrlHelper::editVerb();
-			$context['item'] = DbController::selectOne($model::selectOneQuery(), $model, UriParser::extractIdFromEditRoute($path));
+			//retrieve item if not already saved in session (caused by errors)
+			if(!isset($context['item'])){
+				$context['item'] = DbController::selectOne($model::selectOneQuery(), $model, UriParser::extractIdFromEditRoute($path));
+			}
 			if(empty($context['item'])){
 				http_response_code(404);
 				echo $model::displayName().' not found';
@@ -90,6 +103,40 @@ if(preg_match('`^/admin/?`', $uri)){
 		}
 		//redirect to index page
 		header('Location: '.UrlHelper::indexLinkFor($model));
+		die();
+	}
+	//save route - create or update
+	if(UriParser::isSaveRoute($path, $models)){
+		$model = UriParser::extractModelFromRoute($path, $models);
+		if(UriParser::isUpdateRoute()){
+			$isUpdate = true;
+			$query = $model::updateQuery();
+		}
+		else{
+			$isUpdate = false;
+			$query = $model::insertQuery();
+		}
+		$values = $model::extractValuesFrom($_POST, $isUpdate);
+		$errorMessage = DbController::save($query, $values, $model);
+		if($errorMessage){
+			//save item values in session
+			$_SESSION['item'] = $model::extractItemFrom($_POST);
+			FlashController::setFlash($errorMessage, FlashController::FLASH_ERROR);
+			//redirect back to add/edit page
+			if($isUpdate){
+				header('Location: '.UrlHelper::editLinkFor($model, $_POST['id']));
+			}
+			else{
+				header('Location: '.UrlHelper::addLinkFor($model));
+			}
+		}
+		else{
+			//delete item from session if there is one
+			unset($_SESSION['item']);
+			FlashController::setFlash($model::toHTML($_POST).' saved', FlashController::FLASH_SUCCESS);
+			//redirect to index page
+			header('Location: '.UrlHelper::indexLinkFor($model));
+		}
 		die();
 	}
 	
