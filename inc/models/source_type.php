@@ -14,7 +14,7 @@ class SourceType extends BaseModel{
 	}
 
 	static function defaultOrdering(): string{
-		return ' name';
+		return 'name';
 	}
 
 	static function toHTML(array $model): string{

@@ -14,7 +14,7 @@ class Source extends BaseModel{
 	}
 
 	static function defaultOrdering(): string{
-		return ' title';
+		return 'title';
 	}
 
 	static function toHTML(array $model): string{

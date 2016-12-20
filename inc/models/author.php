@@ -14,7 +14,7 @@ class Author extends BaseModel{
 	}
 
 	static function defaultOrdering(): string{
-		return ' author_last, author_first, author_middle';
+		return 'author_last, author_first, author_middle';
 	}
 
 	static function toHTML(array $model): string{
