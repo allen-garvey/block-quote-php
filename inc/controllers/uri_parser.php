@@ -50,6 +50,12 @@ class UriParser {
 		return !self::isUpdateRoute();
 	}
 
+	//check if should add another model after save
+	//should be called after isSaveRoute returns true
+	static function shouldAddAnother(array $post): bool{
+		return isset($post[FormHelper::ADD_ANOTHER_BUTTON_NAME]);
+	}
+
 	static function isDeleteRoute(string $uri, array $models): bool{
 		//check that request if POST request
 		if($_SERVER['REQUEST_METHOD'] != 'POST'){

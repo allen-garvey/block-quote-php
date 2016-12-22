@@ -134,8 +134,14 @@ if(preg_match('`^/admin/?`', $uri)){
 			//delete item from session if there is one
 			unset($_SESSION['item']);
 			FlashController::setFlash($model::toHTML($_POST).' saved', FlashController::FLASH_SUCCESS);
-			//redirect to index page
-			header('Location: '.UrlHelper::indexLinkFor($model));
+			//redirect back to add another form if set
+			if(UriParser::shouldAddAnother($_POST)){
+				header('Location: '.UrlHelper::addLinkFor($model));
+			}
+			else{
+				//redirect to index page
+				header('Location: '.UrlHelper::indexLinkFor($model));
+			}
 		}
 		die();
 	}
