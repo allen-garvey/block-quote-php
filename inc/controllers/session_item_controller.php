@@ -27,7 +27,7 @@ class SessionItemController{
 
 	//used to check if item is saved in session
 	static function isItemStored(): bool{
-		return isset($_SESSION[self::SESSION_ITEM_KEY] && !empty($_SESSION[self::SESSION_ITEM_KEY]));
+		return isset($_SESSION[self::SESSION_ITEM_KEY]) && !empty($_SESSION[self::SESSION_ITEM_KEY]);
 	}
 	//deletes item from session
 	static function deleteItem(){
