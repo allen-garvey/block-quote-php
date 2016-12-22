@@ -12,8 +12,9 @@ require_once(MODELS_PATH.'source.php');
 require_once(CONTROLLERS_PATH.'uri_parser.php');
 //database imports
 require_once(CONTROLLERS_PATH.'db_controller.php');
-//session imports for flash messages
+//session imports
 require_once(CONTROLLERS_PATH.'flash_controller.php');
+require_once(CONTROLLERS_PATH.'session_item_controller.php');
 //view helpers
 require_once(VIEW_HELPERS_PATH.'url_helper.php');
 require_once(VIEW_HELPERS_PATH.'form_helper.php');
@@ -61,10 +62,8 @@ if(preg_match('`^/admin/?`', $uri)){
 		$context['flash'] = FlashController::getFlash();
 
 		//get item from session if there is one
-		if(isset($_SESSION['item'])){
-			$context['item'] = $_SESSION['item'];
-			//unset it so we don't see it again
-			unset($_SESSION['item']);
+		if(SessionItemController::isItemStored()){
+			$context['item'] = SessionItemController::getItem();
 		}
 
 		foreach($model::relatedModels() as $relatedModel){
@@ -120,7 +119,7 @@ if(preg_match('`^/admin/?`', $uri)){
 		$errorMessage = DbController::save($query, $values, $model);
 		if($errorMessage){
 			//save item values in session
-			$_SESSION['item'] = $model::extractItemFrom($_POST);
+			SessionItemController::setItem($model::extractItemFrom($_POST));
 			FlashController::setFlash($errorMessage, FlashController::FLASH_ERROR);
 			//redirect back to add/edit page
 			if($isUpdate){
@@ -132,7 +131,7 @@ if(preg_match('`^/admin/?`', $uri)){
 		}
 		else{
 			//delete item from session if there is one
-			unset($_SESSION['item']);
+			SessionItemController::deleteItem();
 			FlashController::setFlash($model::toHTML($_POST).' saved', FlashController::FLASH_SUCCESS);
 			//redirect back to add another form if set
 			if(UriParser::shouldAddAnother($_POST)){
