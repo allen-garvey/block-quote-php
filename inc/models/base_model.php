@@ -129,5 +129,25 @@ abstract class BaseModel{
 		return 100;
 	}
 
+	//fields that should be duplicated when 'save and add another' button is pressed
+	//by default, none are, so the array is empty
+	//override this function if you want values to be duplicated when 'add another' button
+	//is used
+	static function addAnotherFields(): array{
+		return [];
+	}
+
+	//returns associative array of fields to values used
+	//when values are duplicated for add another item
+	static function addAnotherValues(array $post): array{
+		$item = array();
+		$addAnotherFields = static::addAnotherFields();
+		foreach($addAnotherFields as $field){
+			$item[$field] = $post[$field];
+		}
+
+		return $item;
+	}
+
 	
 }

@@ -135,6 +135,7 @@ if(preg_match('`^/admin/?`', $uri)){
 			FlashController::setFlash($model::toHTML($_POST).' saved', FlashController::FLASH_SUCCESS);
 			//redirect back to add another form if set
 			if(UriParser::shouldAddAnother($_POST)){
+				SessionItemController::setItem($model::addAnotherValues($_POST));
 				header('Location: '.UrlHelper::addLinkFor($model));
 			}
 			else{

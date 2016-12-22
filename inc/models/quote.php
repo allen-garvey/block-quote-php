@@ -35,5 +35,9 @@ class Quote extends BaseModel{
 	static function fields(): array{
 		return ['quote_content', 'author_id', 'source_id', 'genre_id'];
 	}
+
+	static function addAnotherFields(): array{
+		return ['author_id', 'source_id', 'genre_id'];
+	}
 	
 }

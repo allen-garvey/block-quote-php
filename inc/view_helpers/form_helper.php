@@ -19,7 +19,7 @@ class FormHelper{
 
 	//returns html encoded value for html input field
 	public static function getValue(array $context, string $name): string{
-		if(isset($context['item'])){ 
+		if(isset($context['item']) && isset($context['item'][$name])){ 
 			return htmlentities($context['item'][$name]); 
 		}
 		return '';
