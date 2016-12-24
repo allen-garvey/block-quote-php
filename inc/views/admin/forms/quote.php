@@ -30,7 +30,7 @@
         <?php 
             (function($model, $dropdown_items, $dropdown_name, $is_required, $selected_id){
                 include(ADMIN_VIEWS_PATH.'forms/dropdown_list.php');
-            })('Source', $context[Source::filename()], 'source', true, FormHelper::getValue($context, 'source_id'));
+            })('Source', $context[Source::filename()], 'source_id', true, FormHelper::getValue($context, 'source_id'));
         ?>
     </div>     
 </div>
