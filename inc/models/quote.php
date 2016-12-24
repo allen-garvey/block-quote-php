@@ -14,7 +14,7 @@ class Quote extends BaseModel{
 	}
 
 	static function defaultOrdering(): string{
-		return 'id';
+		return 'id DESC';
 	}
 
 	static function toHTML(array $model): string{
