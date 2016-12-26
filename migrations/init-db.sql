@@ -42,7 +42,8 @@ CREATE TABLE quotes_author (
     id integer NOT NULL,
     author_last character varying(200),
     author_first character varying(200) NOT NULL,
-    author_middle character varying(200)
+    author_middle character varying(200),
+    CONSTRAINT unique_author_name UNIQUE(author_first, author_middle, author_last)
 );
 
 
@@ -146,7 +147,7 @@ ALTER SEQUENCE quotes_quote_id_seq OWNED BY quotes_quote.id;
 
 CREATE TABLE quotes_quotegenre (
     id integer NOT NULL,
-    name character varying(200) NOT NULL
+    name character varying(200) UNIQUE NOT NULL
 );
 
 
@@ -218,7 +219,7 @@ ALTER SEQUENCE quotes_source_id_seq OWNED BY quotes_source.id;
 
 CREATE TABLE quotes_sourcetype (
     id integer NOT NULL,
-    name character varying(200) NOT NULL
+    name character varying(200) UNIQUE NOT NULL
 );
 
 
@@ -298,6 +299,49 @@ CREATE TRIGGER trigger_quotes_source_sort_title
     BEFORE INSERT OR UPDATE ON quotes_source
     FOR EACH row
     EXECUTE PROCEDURE proc_quotes_source_sort_title();
+
+
+CREATE OR REPLACE FUNCTION proc_quote_attribution_check() RETURNS TRIGGER AS $trigger_check_quote_is_attributed$
+    DECLARE
+        v_quote_source quotes_source%ROWTYPE;
+        v_parent_source quotes_source%ROWTYPE;
+    BEGIN
+        --don't need to do anything if author_id is set
+        IF NEW.author_id IS NOT NULL THEN
+            RETURN NEW;
+        END IF;
+
+
+        SELECT * from quotes_source INTO v_quote_source WHERE id = NEW.source_id LIMIT 1;
+
+        --don't need to do anything if source has an author directly
+        IF v_quote_source.author_id IS NOT NULL THEN
+            RETURN NEW;
+        END IF;
+        
+        -- check if source has either author or parent source
+        IF v_quote_source.parent_source_id IS NULL THEN
+            RAISE EXCEPTION 'If quote doesn''t have an author then quote source must have either an author or parent source';
+        END IF;
+
+        -- if quote has parent source and no author, make sure parent source has author
+        SELECT * FROM quotes_source INTO v_parent_source WHERE id = v_quote_source.parent_source_id LIMIT 1;
+        IF v_parent_source.author_id IS NULL THEN
+            RAISE EXCEPTION 'Parent source of quote source must have an author';
+        END IF;
+
+        RETURN NEW;
+    END;
+$trigger_check_quote_is_attributed$ LANGUAGE plpgsql;
+
+
+-- makes sure either quote source has an author
+-- or that parent source of quote source has author
+-- arbitrarily long links of sources to parent sources are not allowed
+CREATE TRIGGER trigger_check_quote_is_attributed
+    BEFORE INSERT OR UPDATE ON quotes_quote
+    FOR EACH row
+    EXECUTE PROCEDURE proc_quote_attribution_check();
 
 
 
