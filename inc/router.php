@@ -157,7 +157,8 @@ elseif(preg_match('`^/dailyquote.json$`', $uri)){
 	die();
 }
 else{
-	include(VIEWS_PATH.'home.php');
+	//redirect to admin page
+	header('Location: '.UrlHelper::adminHomeLink());
 	die();
 }
 
