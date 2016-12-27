@@ -90,6 +90,16 @@ class DbController{
 		return '';
 	}
 
+	public static function insert(string $query, array $values){
+		$con = self::getConnection();
+		
+		pg_prepare($con, 'daily_quote_insert', $query) or die(pg_last_error($con));
+
+		pg_execute($con, 'daily_quote_insert', $values) or die(pg_last_error($con));
+
+		pg_close($con);
+	}
+
 
 
 

@@ -19,6 +19,9 @@ require_once(CONTROLLERS_PATH.'session_item_controller.php');
 require_once(VIEW_HELPERS_PATH.'url_helper.php');
 require_once(VIEW_HELPERS_PATH.'form_helper.php');
 
+//daily quote
+require_once(CONTROLLERS_PATH.'daily_quote.php');
+
 //start session
 session_start();
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -146,6 +149,12 @@ if(preg_match('`^/admin/?`', $uri)){
 		die();
 	}
 	
+}
+//daily quote route
+elseif(preg_match('`^/dailyquote.json$`', $uri)){
+	header('Content-Type: application/json');
+	echo json_encode(DailyQuote::getDailyQuote(), JSON_FORCE_OBJECT);
+	die();
 }
 else{
 	include(VIEWS_PATH.'home.php');
