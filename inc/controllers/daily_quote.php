@@ -97,7 +97,7 @@ class DailyQuote{
 			return [];
 		}
 		$randomQuote = $randomQuote[0];
-		DbController::insert(self::insertDailyQuoteQuery($lastUsedId), [$randomQuote['id']]);
+		DbController::insert(self::insertDailyQuoteQuery($lastUsedId), [$randomQuote['quote_id']]);
 		return $randomQuote;
 	}
 
