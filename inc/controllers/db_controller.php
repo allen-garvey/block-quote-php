@@ -37,6 +37,7 @@ class DbController{
 		return self::arrayFromResult($result);
 	}
 
+
 	public static function selectOne(string $query, string $model, string $id): array{
 		$con = self::getConnection();
 		
@@ -100,6 +101,20 @@ class DbController{
 		pg_close($con);
 	}
 
+	//used for daily quote
+	public static function selectOneRow(string $query, array $values): array{
+		$con = self::getConnection();
+		
+		pg_prepare($con, 'daily_quote_select_one', $query) or die(pg_last_error($con));
+		$result = pg_execute($con, 'daily_quote_select_one', $values) or die(pg_last_error($con));
+		pg_close($con);
+
+		$data = self::arrayFromResult($result);
+		if(!empty($data)){
+			$data = $data[0];
+		}
+		return $data;
+	}
 
 
 
