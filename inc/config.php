@@ -12,7 +12,7 @@ require_once(INC_PATH.'environment_setup.php');
 require_once(INC_PATH.'db.php');
 
 
-define('BASE_URL','http://quotes.alaska.dev/');
+define('BASE_URL','http://quotes.alaska.test/');
 
 define('STYLES_URL', BASE_URL.'styles/');
 define('SCRIPTS_URL', BASE_URL.'scripts/');
