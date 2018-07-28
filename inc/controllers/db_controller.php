@@ -12,7 +12,12 @@ class DbController{
 		$database_password = DB_PASS;
 		$database_name = DB_NAME;
 
-		$con = pg_connect("host=$database_host port=$database_port dbname=$database_name user=$database_username");
+		$connection_string = "host=$database_host port=$database_port dbname=$database_name user=$database_username";
+		if(!empty($database_password)){
+			$connection_string .= " password=$database_password";
+		}
+
+		$con = pg_connect($connection_string);
 
 		// Check connection
 		if(!$con){
