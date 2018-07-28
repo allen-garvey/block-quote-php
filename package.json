@@ -5,7 +5,9 @@
   "main": "public_html/index.php",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "setup": "chmod u+x setup.bash && ./setup.bash"
+    "setup": "chmod u+x setup.bash && ./setup.bash",
+    "gulp": "gulp",
+    "gulp:watch": "gulp watch"
   },
   "repository": {
     "type": "git",

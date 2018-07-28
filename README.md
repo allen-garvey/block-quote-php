@@ -14,12 +14,11 @@ Inspirational quote CMS. Admin styles based on Django admin.
 
 * `cd` into downloaded project directory
 * Type `npm install` to install dependencies
-* If you do not have Gulp installed type `npm install gulp -g` or `sudo npm install gulp -g` to install Gulp
 * Type `npm run setup` to initialize configuration files
 * Edit the `inc/environment.json` file to set the current environment variables
 * Edit the `inc/db.php` file with your PostgreSQL connection settings
-* Type `gulp build` to compile raw JavaScript files and scss files
-* Type `gulp watch` to watch for changes in JavaScript and scss files and build as necessary
+* Type `npm run gulp` to compile raw JavaScript files and scss files
+* Type `npm run gulp:watch` to watch for changes in JavaScript and scss files and build as necessary
 
 ## License
 
