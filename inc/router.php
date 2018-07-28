@@ -150,6 +150,11 @@ if(preg_match('`^/admin/?`', $uri)){
 	}
 	
 }
+elseif(preg_match('`^/api/export.sql$`', $uri)){
+	header('Content-Type: text/plain');
+	require(VIEWS_PATH.'export-sql.php');
+	die();
+}
 //daily quote route
 elseif(preg_match('`^/dailyquote.json$`', $uri)){
 	header('Content-Type: application/json');
