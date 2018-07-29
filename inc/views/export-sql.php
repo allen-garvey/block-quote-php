@@ -47,11 +47,15 @@ function sqlOptionIntCoalesce(int $int1=null, int $int2=null){
 	return $int1Value;
 }
 
+function sqlDate(string $date): string{
+	return "to_date('$date', 'YYYY-MM-DD')";
+}
+
 function sqlOptionalDate(string $date=null): string{
 	if(empty($date)){
 		return 'NULL';
 	}
-	return "to_date('$date', 'YYYY-MM-DD')";
+	return sqlDate($date);
 }
 
 function sectionComment(string $tableDescription){
@@ -130,6 +134,22 @@ printTable("SELECT source.id id, source.title title, source.sort_title sort_titl
 
 	return "INSERT INTO sources (id, author_id, sort_title, title, url, source_type_id, parent_source_id, release_date, inserted_at, updated_at) VALUES ($id, $authorId, $sortTitle, $title, $url, $sourceTypeId, $parentSourceId, $releaseDate, now(), now());";
 });
+
+/*
+* Quotes
+*/
+sectionComment('Quotes');
+printTable("SELECT * FROM quotes_quote ORDER BY id;", function($row){
+	$id = $row['id'];
+	$dateAdded = sqlDate($row['date_added']);
+	$body = sqlEscapeString($row['quote_content']);
+	$categoryId = $row['genre_id'];
+	$authorId = sqlOptionalInt($row['author_id']);
+	$sourceId = $row['source_id'];
+
+	return "INSERT INTO quotes (id, body, category_id, author_id, source_id, inserted_at, updated_at) VALUES ($id, $body, $categoryId, $authorId, $sourceId, $dateAdded, now());";
+});
+
 
 
 
