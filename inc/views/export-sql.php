@@ -12,6 +12,15 @@ function printTable(string $selectStatement, callable $rowCallback){
 	}
 }
 
+/*
+* Fixes id sequence, since we bypassed it when doing these inserts
+* from: https://stackoverflow.com/questions/244243/how-to-reset-postgres-primary-key-sequence-when-it-falls-out-of-sync
+*/
+function resetIdSequence(string $tableName){
+	echo "--Reset $tableName sequence", PHP_EOL;
+	echo "SELECT setval(pg_get_serial_sequence('$tableName', 'id'), COALESCE(MAX(id), 1), MAX(id) IS NOT null) FROM $tableName;", PHP_EOL;
+}
+
 function sqlEscapeString(string $string): string{
 	$escapedString = str_replace("'", "''", $string);
 	return "'$escapedString'";
@@ -121,3 +130,17 @@ printTable("SELECT source.id id, source.title title, source.sort_title sort_titl
 
 	return "INSERT INTO sources (id, author_id, sort_title, title, url, source_type_id, parent_source_id, release_date, inserted_at, updated_at) VALUES ($id, $authorId, $sortTitle, $title, $url, $sourceTypeId, $parentSourceId, $releaseDate, now(), now());";
 });
+
+
+
+/*
+* Reset Id sequences
+*/
+sectionComment('Reset Id sequences');
+resetIdSequence('authors');
+resetIdSequence('categories');
+resetIdSequence('source_types');
+resetIdSequence('parent_sources');
+resetIdSequence('sources');
+resetIdSequence('quotes');
+resetIdSequence('daily_quotes');
