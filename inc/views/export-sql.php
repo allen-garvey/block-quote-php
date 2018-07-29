@@ -30,11 +30,19 @@ function sqlOptionalInt(int $int=null){
 	}
 	return $int;
 }
-function sqlOptionalDate(string $date): string{
+function sqlOptionIntCoalesce(int $int1=null, int $int2=null){
+	$int1Value = sqlOptionalInt($int1); 
+	if($int1Value === 'NULL'){
+		return sqlOptionalInt($int2);
+	}
+	return $int1Value;
+}
+
+function sqlOptionalDate(string $date=null): string{
 	if(empty($date)){
 		return 'NULL';
 	}
-	return $date;
+	return "to_date('$date', 'YYYY-MM-DD')";
 }
 
 function sectionComment(string $tableDescription){
@@ -86,24 +94,30 @@ sectionComment('Parent sources');
 printTable("SELECT * FROM quotes_source WHERE id IN (SELECT parent_source_id from quotes_source WHERE parent_source_id IS NOT NULL) ORDER BY id;", function($row){
 	$id = $row['id'];
 	$title = sqlEscapeString($row['title']);
+	$sortTitle = sqlEscapeString($row['sort_title']);
+	$title = sqlEscapeString($row['title']);
 	$url = sqlOptionalString($row['url']);
 	$sourceTypeId = $row['source_type_id'];
 
-	return "INSERT INTO source_types (id, title, url, source_type_id, inserted_at, updated_at) VALUES ($id, $title, $url, $sourceTypeId, now(), now());";
+	return "INSERT INTO parent_sources (id, sort_title, title, url, source_type_id, inserted_at, updated_at) VALUES ($id, $sortTitle, $title, $url, $sourceTypeId, now(), now());";
 });
 
 
 /*
 * Sources
 */
-//remember that some sources get the author from the parent source, so you need a left join to get it here
-// sectionComment('Sources');
-// printTable("SELECT * FROM quotes_source WHERE id IN (SELECT parent_source_id from quotes_source WHERE parent_source_id IS NOT NULL) ORDER BY id;", function($row){
-// 	$id = $row['id'];
-// 	$title = sqlEscapeString($row['title']);
-// 	$releaseDate = sqlOptionalDate($row['release_date']);
-// 	$url = sqlOptionalString($row['url']);
-// 	$authorId = sqlOptionalInt($row['author_id']);
+//some sources get the author from the parent source, so you need a left join to get it here
+sectionComment('Sources');
+printTable("SELECT source.id id, source.title title, source.sort_title sort_title, source.url url, source.parent_source_id parent_source_id, source.source_type_id source_type_id, source.release_date release_date, source.author_id author_id, parent_source.author_id parent_author_id FROM quotes_source AS source LEFT JOIN quotes_source as parent_source ON source.parent_source_id = parent_source.id WHERE source.id NOT IN (SELECT parent_source_id from quotes_source WHERE parent_source_id IS NOT NULL) ORDER BY source.id;", function($row){
+	$id = $row['id'];
+	$title = sqlEscapeString($row['title']);
+	$sortTitle = sqlEscapeString($row['sort_title']);
+	$title = sqlEscapeString($row['title']);
+	$url = sqlOptionalString($row['url']);
+	$sourceTypeId = $row['source_type_id'];
+	$parentSourceId = sqlOptionalInt($row['parent_source_id']);
+	$releaseDate = sqlOptionalDate($row['release_date']);
+	$authorId = sqlOptionIntCoalesce($row['author_id'], $row['parent_author_id']);
 
-// 	return "INSERT INTO source_types (id, name, inserted_at, updated_at) VALUES ($id, $name, now(), now());";
-// });
+	return "INSERT INTO sources (id, author_id, sort_title, title, url, source_type_id, parent_source_id, release_date, inserted_at, updated_at) VALUES ($id, $authorId, $sortTitle, $title, $url, $sourceTypeId, $parentSourceId, $releaseDate, now(), now());";
+});
