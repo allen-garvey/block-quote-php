@@ -150,6 +150,15 @@ printTable("SELECT * FROM quotes_quote ORDER BY id;", function($row){
 	return "INSERT INTO quotes (id, body, category_id, author_id, source_id, inserted_at, updated_at) VALUES ($id, $body, $categoryId, $authorId, $sourceId, $dateAdded, now());";
 });
 
+sectionComment('Daily quotes');
+printTable("SELECT id, date_used::date, quote_id FROM quotes_dailyquote ORDER BY id;", function($row){
+	$id = $row['id'];
+	$dateUsed = sqlDate($row['date_used']);
+	$quoteId = $row['quote_id'];
+
+	return "INSERT INTO daily_quotes (id, quote_id, date_used, inserted_at, updated_at) VALUES ($id, $quoteId, $dateUsed, now(), now());";
+});
+
 
 
 
